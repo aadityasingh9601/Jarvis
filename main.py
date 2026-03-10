@@ -16,7 +16,7 @@ def speak(text):
 
 def fetchNews():
     api_key = os.environ.get("NEWS_API_KEY")
-    r = requests.get(f"https://newsapi.org/v2/top-headlines?country=us&apiKey={api_key}")
+    r = requests.get(f"https://newsapi.org/v2/top-headlines?country=us&pageSize=5&apiKey={api_key}")
     
     if r.status_code == 200:
         data = r.json()
@@ -45,39 +45,54 @@ def followCommand(c):
     elif "news" in c.lower():
         fetchNews()
     else:
-        print("Let open AI handle it!")
+        speak("Searching! Just a moment, Sir!")
+        print("LLM handling the response")
         speak(callLLM(c))
         # Write logic to handle calling OpenAI API or any other LLM API that is free if possible & speaking the response.
 
 # Tune the settings & properties of audio listener & recognizer etc here so that it hears accurately, more easily & in a better
 # way overall, so that it's smooth & more effective.
 
+# Initialize recognizer
+recognizer = sr.Recognizer()
+# recognizer.energy_threshold = 300
+# recognizer.dynamic_energy_threshold = True
+
 if __name__ == "__main__":
     speak("Initializing Jarvis!")
+    print("Calibrating microphone...")
+    
+    with sr.Microphone() as source:
+        recognizer.adjust_for_ambient_noise(source, duration=1)
+
     while True:
         try:
-            # Initialize recognizer
-            recognizer = sr.Recognizer()
-            print("recognizing!")
+            print("Listening for Wake Word!")
             # listen for the wake word "Jarvis"
             with sr.Microphone() as source:
-                print("Say something!")
+                audio = recognizer.listen( source,timeout=4,phrase_time_limit=3)
                 
-                audio = recognizer.listen(source,timeout=2,phrase_time_limit=1)
-                command = recognizer.recognize_google(audio)
-                print(command)
+                command = recognizer.recognize_google(audio).lower()
+                print("Heard:", command)
                 
-                if(command.lower() == "hello"):
+                if(command == "jarvis"):
                     speak("Yes sir!")
-                    # Listen for command
-                    with sr.Microphone() as source:
-                        print("Jarvis is active!")
-                        audio = recognizer.listen(source,phrase_time_limit=3)
-                        command = recognizer.recognize_google(audio)
-                        if "goodbye" in command.lower():
-                            speak("Good bye! Sir.")
-                            break
-                        followCommand(command)
+                    print("Listening for command!")
+
+                    audio = recognizer.listen(source,timeout=5,phrase_time_limit=5)
+                    
+                    command = recognizer.recognize_google(audio).lower()
+                    print("Command",command)
+                    if "goodbye" in command:
+                        speak("Good bye! Sir.")
+                        break
+                    followCommand(command)
     
+        except sr.WaitTimeoutError:
+                continue
+        
+        except sr.UnknownValueError:
+            print("Could not understand audio")
+
         except Exception as e:
-            print("Error -> ", e)
+            print("Error:",e)
