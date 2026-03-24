@@ -45,8 +45,8 @@ def followCommand(c):
     elif "news" in c.lower():
         fetchNews()
     else:
-        speak("Searching! Just a moment, Sir!")
-        print("LLM handling the response")
+        speak("Thinking! Just a moment, Sir!")
+        print("AI handling the response")
         speak(callLLM(c))
         # Write logic to handle calling OpenAI API or any other LLM API that is free if possible & speaking the response.
 
@@ -83,7 +83,7 @@ if __name__ == "__main__":
                     
                     command = recognizer.recognize_google(audio).lower()
                     print("Command",command)
-                    if "goodbye" in command:
+                    if "good bye" in command:
                         speak("Good bye! Sir.")
                         break
                     followCommand(command)

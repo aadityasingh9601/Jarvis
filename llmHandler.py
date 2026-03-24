@@ -1,30 +1,22 @@
-from openai import OpenAI
+from google import genai
+from google.genai import types
 import os
 from dotenv import load_dotenv
 
 load_dotenv()
 
-api_key = os.environ.get("OPEN_API_KEY")
+api_key = os.environ.get("GEMINI_API_KEY")
 
-client = OpenAI(api_key=api_key)
+# The client gets the API key from the environment variable `GEMINI_API_KEY`.
+client = genai.Client(api_key=api_key)
 
 def callLLM(command):
-    response = client.responses.create(
-        model="gpt-5-nano",
-        # max_output_tokens=500,
-        input = [
-            {
-                "role":"system",
-                "content":"You're a voice personal assistant named Jarvis. Give short replies only please!"
-            },
-            {
-                "role":"user",
-                "content":f"{command}"
-            }
-        ]
-        
+    response = client.models.generate_content(
+    model="gemini-3-flash-preview",
+    config=types.GenerateContentConfig(
+        system_instruction="You are a personal voice assistant. Your name is Jarvis. Reply to everything in short."),
+    contents=command,
     )
-
-    print(response.output_text)
-    return response.output_text
     
+    print(response.text)
+    return response.text
