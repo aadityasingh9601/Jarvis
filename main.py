@@ -6,8 +6,14 @@ from llmHandler import callLLM
 import os
 import requests
 from dotenv import load_dotenv
+import pyautogui
 
 load_dotenv()
+
+def searchBrowser(query):
+    command = query.split("search ")[1]
+    pyautogui.typewrite(command)
+    pyautogui.hotkey("enter")
 
 def speak(text):
     engine = pyttsx3.init()
@@ -32,23 +38,34 @@ def followCommand(c):
     print(c)
     if "open google" in c.lower():
         webbrowser.open("https://google.com")
+    elif "open the browser" in c.lower():
+        webbrowser.open("https://")
+    elif "open new tab" in c.lower():
+        pyautogui.hotkey("ctrl","t")  # ctrl-t to open a new browser tab.
+    elif "close the tab" in c.lower():
+        pyautogui.hotkey("ctrl","w")  # ctrl-w to close the current browser tab.
     elif "open youtube" in c.lower():
         webbrowser.open("https://www.youtube.com")
     elif "open linkedin" in c.lower():
         webbrowser.open("https://linkedin.com")
+    elif "search" in c.lower():
+        searchBrowser(c.lower())
     elif "play" in c.lower():
         # Currently you music library is visile on github repo, either change the songs there, or remove it (maybe)
         song = c.lower().split(" ")[1]
         print(song)
         link = musicLibrary.music[song]
         webbrowser.open(link)
+    elif "pause" in c.lower():
+        pyautogui.click(672,552)
+    elif "resume" in c.lower():
+        pyautogui.click(672,552)
     elif "news" in c.lower():
         fetchNews()
     else:
         speak("Thinking! Just a moment, Sir!")
-        print("AI handling the response")
+        # print("AI handling the response")
         speak(callLLM(c))
-        # Write logic to handle calling OpenAI API or any other LLM API that is free if possible & speaking the response.
 
 # Tune the settings & properties of audio listener & recognizer etc here so that it hears accurately, more easily & in a better
 # way overall, so that it's smooth & more effective.
@@ -79,7 +96,7 @@ if __name__ == "__main__":
                     speak("Yes sir!")
                     print("Listening for command!")
 
-                    audio = recognizer.listen(source,timeout=5,phrase_time_limit=5)
+                    audio = recognizer.listen(source,timeout=5,phrase_time_limit=8)
                     
                     command = recognizer.recognize_google(audio).lower()
                     print("Command",command)
