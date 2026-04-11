@@ -28,7 +28,7 @@ def searchBrowser(query):
 def fetchNews():
     api_key = os.environ.get("NEWS_API_KEY")
     r = requests.get(
-        f"https://newsapi.org/v2/top-headlines?country=us&pageSize=5&apiKey={api_key}"
+        f"https://newsapi.org/v2/top-headlines?country=us&pageSize=10&apiKey={api_key}"
     )
     if r.status_code == 200:
         data = r.json()
@@ -62,7 +62,8 @@ def followCommand(c):
         searchBrowser(c.lower())
         return f"Searching for {c.split('search')[1].strip()}..."
     elif "scroll the page" in c.lower():
-         pyautogui.scroll(10, x=100, y=100)
+         pyautogui.scroll(-400)
+         return f"Scrolling the page..."
     elif "play" in c.lower():
         song = c.lower().split(" ")[1]
         link = musicLibrary.music.get(song)
@@ -125,7 +126,7 @@ class JarvisUI:
         # Start/Stop button
         self.listen_btn = tk.Button(
             self.root,
-            text='Click to start "Jarvis',
+            text='Click to start "Jarvis"',
             font=("Helvetica", 13, "bold"),
             fg="white",
             bg="#0077ff",
