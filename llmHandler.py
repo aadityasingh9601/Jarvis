@@ -17,6 +17,4 @@ def callLLM(command):
         system_instruction="You are a personal voice assistant. Your name is Jarvis. Reply to everything in short."),
     contents=command,
     )
-    
-    print(response.text)
     return response.text
