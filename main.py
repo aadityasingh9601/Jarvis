@@ -89,7 +89,7 @@ class JarvisUI:
     def __init__(self, root):
         self.root = root
         self.root.title("Jarvis Voice Assistant")
-        self.root.geometry("900x750")
+        self.root.geometry("1350x900")
         self.root.configure(bg="#1a1a2e")
         self.root.resizable(False, False)
 

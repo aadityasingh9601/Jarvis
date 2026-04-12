@@ -2,6 +2,8 @@
 
 A Python-based personal voice assistant powered by Google Gemini AI. Jarvis listens for a wake word, understands natural language commands, and performs real-world actions on your machine — all through voice.
 
+![alt text](Jarvis.png)
+
 ---
 
 ## ✨ Features
@@ -17,12 +19,6 @@ A Python-based personal voice assistant powered by Google Gemini AI. Jarvis list
 
 ---
 
-## 🖼️ Demo
-
-> _Add a screenshot or screen recording of the UI here_
-
----
-
 ## 🛠️ Tech Stack
 
 | Technology        | Purpose                           |
@@ -30,10 +26,11 @@ A Python-based personal voice assistant powered by Google Gemini AI. Jarvis list
 | Python            | Core language                     |
 | SpeechRecognition | Voice input & transcription       |
 | pyttsx3           | Text-to-speech output             |
-| Google Gemini API | AI responses for unknown commands |
-| NewsAPI           | Fetching live news headlines      |
+| webbrowser        | Web browser controller            |
 | PyAutoGUI         | Browser automation (tabs, search) |
 | Tkinter           | Desktop UI                        |
+| Google Gemini API | AI responses for unknown commands |
+| NewsAPI           | Fetching live news headlines      |
 
 ---
 
@@ -41,7 +38,7 @@ A Python-based personal voice assistant powered by Google Gemini AI. Jarvis list
 
 ### Prerequisites
 
-- Python 3.9+
+- Python 3+
 - A working microphone
 - Google Gemini API key → [Get one here](https://aistudio.google.com/app/apikey)
 - NewsAPI key → [Get one here](https://newsapi.org/)
@@ -50,49 +47,51 @@ A Python-based personal voice assistant powered by Google Gemini AI. Jarvis list
 
 ### 1. Clone the repository
 
-```bash
+```
 git clone https://github.com/aadityasingh9601/Jarvis.git
 cd Jarvis
 ```
 
-### 2. Install dependencies
+### 2. Setup a virtual environment
 
-```bash
+```
+# Create a virtual env
+python -m venv venv
+# To activate the virtual env
+venv/Scripts/activate
+# To exit the virtual env
+deactivate
+```
+
+### 3. Install dependencies
+
+```
 pip install -r requirements.txt
 ```
 
-> If `requirements.txt` is not present, install manually:
->
-> ```bash
-> pip install speechrecognition pyttsx3 google-genai pyautogui requests python-dotenv
-> ```
+### 4. Set up environment variables
 
-### 3. Set up environment variables
+Duplicate `.env.example` to `.env`
 
-Create a `.env` file in the root directory:
-
-```env
+```
 GEMINI_API_KEY=your_gemini_api_key_here
 NEWS_API_KEY=your_newsapi_key_here
 ```
 
-### 4. Add your music library (optional)
+### 5. Add your music library (optional)
 
 Open `musicLibrary.py` and add your songs in this format:
 
-```python
+```
 music = {
-    "song name": "https://youtube-link-here",
+    "song name 1": "https://youtube-link1-here",
+    "song name 2": "https://youtube-link2-here",
 }
 ```
 
-### 5. Run Jarvis
+### 6. Run Jarvis
 
-```bash
-# With UI
-python ui.py
-
-# Without UI (CLI only)
+```
 python main.py
 ```
 
@@ -110,10 +109,11 @@ python main.py
 | `open new tab`     | Opens a new tab (Ctrl+T)        |
 | `close the tab`    | Closes current tab (Ctrl+W)     |
 | `search <query>`   | Types and searches your query   |
+| `scroll the page`  | Scrolls current page            |
 | `play <song>`      | Plays a song from music library |
 | `pause`            | Pauses media                    |
 | `resume`           | Resumes media                   |
-| `news`             | Reads top 5 news headlines      |
+| `fetch news`       | Reads top 10 news headlines     |
 | `good bye`         | Shuts down Jarvis               |
 | _anything else_    | Handled by Gemini AI            |
 
@@ -123,41 +123,33 @@ python main.py
 
 ```
 Jarvis/
-├── main.py            # Core logic — commands, speech, Jarvis loop
-├── ui.py              # Tkinter UI — visual interface
+├── main.py            # Core logic — commands, speech, Jarvis loop with visual interface
 ├── llmHandler.py      # Google Gemini AI integration
 ├── musicLibrary.py    # Personal music library (song → URL map)
 ├── cursorPosition.py  # Utility to find screen coordinates
-├── .env               # API keys (not committed)
+├── .env.example       # API keys
+├── requirements.txt
 ├── .gitignore
 └── README.md
 ```
 
 ---
 
-## 🔑 Environment Variables
-
-| Variable         | Description                            |
-| ---------------- | -------------------------------------- |
-| `GEMINI_API_KEY` | Google Gemini API key for AI responses |
-| `NEWS_API_KEY`   | NewsAPI key for fetching headlines     |
-
----
-
-## ⚠️ Known Limitations
+<!-- ## ⚠️ Known Limitations
 
 - Requires a physical microphone — does not work in cloud environments
 - `search` command uses PyAutoGUI to type — browser must be open and focused
 - `pause`/`resume` use hardcoded screen coordinates — may need adjustment based on your screen resolution (use `cursorPosition.py` to find the correct coordinates)
 - Music library requires manual setup in `musicLibrary.py`
 
----
+--- -->
 
-## 🤝 Contributing
+## Author
 
-Pull requests are welcome. For major changes, please open an issue first to discuss what you'd like to change.
-
----
+- **GitHub**: [https://github.com/aadityasingh9601](https://github.com/aadityasingh9601)
+- **LinkedIn**: [https://www.linkedin.com/in/aadityasingh999](https://www.linkedin.com/in/aadityasingh999)
+- **X**: [https://x.com/AadityaSingh771](https://x.com/AadityaSingh771)
+- **Portfolio**: [https://aadityasingh.dev](https://aadityasingh.dev)
 
 ## 📄 License
 
