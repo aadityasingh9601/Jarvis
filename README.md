@@ -21,16 +21,16 @@ A Python-based personal voice assistant powered by Google Gemini AI. Jarvis list
 
 ## 🛠️ Tech Stack
 
-| Technology        | Purpose                           |
-| ----------------- | --------------------------------- |
-| Python            | Core language                     |
-| SpeechRecognition | Voice input & transcription       |
-| pyttsx3           | Text-to-speech output             |
-| webbrowser        | Web browser controller            |
-| PyAutoGUI         | Browser automation (tabs, search) |
-| Tkinter           | Desktop UI                        |
-| Google Gemini API | AI responses for unknown commands |
-| NewsAPI           | Fetching live news headlines      |
+| Technology         | Purpose                           |
+| ------------------ | --------------------------------- |
+| Python             | Core language                     |
+| speech_recognition | Voice input & transcription       |
+| pyttsx3            | Text-to-speech output             |
+| webbrowser         | Web browser controller            |
+| pyautogui          | Browser automation (tabs, search) |
+| tkinter            | Desktop UI                        |
+| Google Gemini API  | AI responses for unknown commands |
+| NewsAPI            | Fetching live news headlines      |
 
 ---
 
@@ -47,25 +47,27 @@ A Python-based personal voice assistant powered by Google Gemini AI. Jarvis list
 
 ### 1. Clone the repository
 
-```
+```bash
 git clone https://github.com/aadityasingh9601/Jarvis.git
 cd Jarvis
 ```
 
 ### 2. Setup a virtual environment
 
-```
+```bash
 # Create a virtual env
 python -m venv venv
+
 # To activate the virtual env
 venv/Scripts/activate
+
 # To exit the virtual env
 deactivate
 ```
 
 ### 3. Install dependencies
 
-```
+```bash
 pip install -r requirements.txt
 ```
 
@@ -73,16 +75,15 @@ pip install -r requirements.txt
 
 Duplicate `.env.example` to `.env`
 
-```
-GEMINI_API_KEY=your_gemini_api_key_here
-NEWS_API_KEY=your_newsapi_key_here
+```bash
+cp `.env.example` `.env`
 ```
 
 ### 5. Add your music library (optional)
 
 Open `musicLibrary.py` and add your songs in this format:
 
-```
+```python
 music = {
     "song name 1": "https://youtube-link1-here",
     "song name 2": "https://youtube-link2-here",
@@ -91,7 +92,7 @@ music = {
 
 ### 6. Run Jarvis
 
-```
+```bash
 python main.py
 ```
 
