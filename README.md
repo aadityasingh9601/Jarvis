@@ -1,4 +1,4 @@
-# 🤖 Jarvis — AI PERSONAL Voice Assistant
+# 🤖 Jarvis — AI Voice Assistant
 
 A Python-based personal voice assistant powered by Google Gemini AI. Jarvis listens for a wake word, understands natural language commands, and performs real-world actions on your machine — all through voice.
 
